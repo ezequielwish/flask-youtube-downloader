@@ -28,3 +28,5 @@ http://127.0.0.1:5000/download?v=_XG3h6LywNQ&q=MP3
 ## Interface
 
 Também pode ser usado atravès de sua unterface web rodando em 127.0.0.1:5000/ onde pode colar o link do youtube e clicar na qualidade desejada. O video ou música abrirá em uma nova guia em forma de blob para executar ou baixar, caso deseje.
+
+![interface web](https://github.com/ezequielwish/flask-youtube-downloader/blob/6379d895985fc24875077204e8fa55e800380236/screenshots/interface%20web.png)
