@@ -1,7 +1,7 @@
 
 # Youtube Downloader API
 
-Uma API projetada para ser simples, ela recebe como parâmetro na url os 9 digitos do ID de um video do youtube e uma qualidade (HQ, LQ e MP3 por enquanto) e efetua o download.
+Uma API projetada para ser simples, ela recebe como parâmetro na url os 9 digitos do ID de um video do youtube e uma qualidade (HQ, LQ e MP3 por enquanto) e retorna um blob com o arquivo baixado no servidor.
 
 ## Requisitos
 É recomendado que tenha um servidor ou um computador com capacidade de processamento que suporte todas as requisições de download feitas pelo usuario atravéz do seu APP ou site.
@@ -12,7 +12,7 @@ Uma API projetada para ser simples, ela recebe como parâmetro na url os 9 digit
 
 Simples, mande uma requisição GET para a url onde a API está hospedada com os 11 dígitos do ID de um video do youtube e a qualidade como no exemplo a seguir.
 ```
-http://127.0.0.1/<ID_do_video>/<HQ, LQ, MP3>
+http://127.0.0.1:5000/download?v=<id_do_video>&q=<MP3, HQ, LQ>
 ```
 
 ## Exemplos
@@ -22,5 +22,9 @@ https://www.youtube.com/watch?v=_XG3h6LywNQ
 ```
 Seria assim:
 ```
-http://127.0.0.1/_XG3h6LywNQ/MP3
+http://127.0.0.1:5000/download?v=_XG3h6LywNQ&q=MP3
 ```
+
+## Interface
+
+Também pode ser usado atravès de sua unterface web rodando em 127.0.0.1:5000/ onde pode colar o link do youtube e clicar na qualidade desejada. O video ou música abrirá em uma nova guia em forma de blob para executar ou baixar, caso deseje.
