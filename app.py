@@ -17,7 +17,7 @@ def fix_filename(quality, filename):
         return filename
 
 
-@app.route('/download', methods= ['POST'])
+@app.route('/download', methods= ['GET'])
 @cross_origin()
 def download():
     videoID = request.args.get('v', '')
