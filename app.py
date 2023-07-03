@@ -24,7 +24,7 @@ def download():
     quality = request.args.get('q', '')
     filename = wish_YT_downloader.download(f'https://youtu.be/{videoID}', f'-{quality}-')
     new_filename = fix_filename(quality, filename)
-    return send_from_directory('download', new_filename, as_attachment=True, etag=new_filename)
+    return send_from_directory('download', new_filename, as_attachment=True)
 
 @app.route('/', methods=['GET'])
 def render():

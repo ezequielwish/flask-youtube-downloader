@@ -3,7 +3,6 @@ const buttonHQ = document.querySelector('#-HQ-')
 const buttonMP3 = document.querySelector('#-MP3-')
 const input = document.querySelector('#input')
 const buttons = document.getElementsByClassName('quality')
-var filename = ''
 
 
 buttonLQ.addEventListener('click', function(){
@@ -27,16 +26,14 @@ function downloadButton(quality) {
                 disableButtons()
                 const videoId = match[1]
                 fetch(`http://localhost:5000/download?v=${videoId}&q=${quality}`, {method: "POST", credentials: "include"}).then(response => {
-                    filename = response.headers.get('ETag')
-                    console.log(filename)
                     return response.blob()
                 }).then(blob => {
                     const downloadURL = URL.createObjectURL(blob)
-                    window.open(downloadURL);
-                    // const link = document.createElement('a')
-                    // link.href = downloadURL
-                    // link.download = filename
-                    // link.click()
+                    // window.open(downloadURL)
+                    const link = document.createElement('a')
+                    link.href = downloadURL
+                    link.download = ""
+                    link.click()
                 })
                 .then(()=>{
                     enableButtons()
