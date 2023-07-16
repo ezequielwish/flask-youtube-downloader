@@ -1,7 +1,8 @@
 from flask import Flask, render_template, send_from_directory, request, send_file
 from flask_cors import CORS, cross_origin
 import wish_YT_downloader
-import os, re
+import os, re, threading
+
 
 path = 'download'
 app = Flask(__name__)
@@ -16,6 +17,9 @@ def fix_filename(quality, filename):
     else:
         return filename
 
+def delete_file(file_path):
+    time_to_wait = 120
+    threading.Timer(time_to_wait, os.remove, args=(file_path,)).start()
 
 @app.route('/download', methods= ['GET'])
 @cross_origin()
@@ -24,7 +28,11 @@ def download():
     quality = request.args.get('q', '')
     filename = wish_YT_downloader.download(f'https://youtu.be/{videoID}', f'-{quality}-')
     new_filename = fix_filename(quality, filename)
-    return send_from_directory('download', new_filename, as_attachment=True)
+    file_path = os.path.join('download', new_filename)
+    try:
+        return send_from_directory('download', new_filename, as_attachment=True)
+    finally:
+        delete_file(file_path)
 
 @app.route('/', methods=['GET'])
 def render():
