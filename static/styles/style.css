@@ -26,7 +26,7 @@ header {
 }
 
 main {
-    height: 80vh;
+    height: 90vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -42,13 +42,21 @@ main {
     border-radius: 6px;
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 10px;
+}
+
+#input-box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5px;
 }
 
 #input {
     padding: 6px;
-    border-radius: 6px;
+    border-radius: 5px;
     border: none;
+    width: 100%;
 }
 
 #input:focus {
@@ -56,23 +64,35 @@ main {
 }
 
 .quality {
+    padding: 40px;
+    border-radius: 3px;
+}
+
+#paste {
+    padding: 7px;
+    border-radius: 4px;
+}
+
+.quality, #paste {
     background-color: rgb(168, 0, 0);
     color: white;
     border: none;
-    border-radius: 3px;
-    padding: 40px;
-    transition-duration: .5s;
+    
+    transition-duration: .3s;
 }
 
 .quality:hover {
-    cursor: pointer;
-    background-color: rgb(198, 0, 0);
-    text-shadow: 0px 0px 10px white;
     border-radius: 15px;
 }
 
+.quality:hover, #paste:hover {
+    cursor: pointer;
+    background-color: rgb(198, 0, 0);
+    text-shadow: 0px 0px 10px white;
+    
+}
+
 footer {
-    background-color: #000000cb;;
     color: white;
     display: flex;
     justify-content: center;

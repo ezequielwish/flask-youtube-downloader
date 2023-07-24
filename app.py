@@ -1,4 +1,4 @@
-from flask import Flask, render_template, send_from_directory, request, send_file
+from flask import Flask, render_template, send_from_directory, request
 from flask_cors import CORS, cross_origin
 import wish_YT_downloader
 import os, re, threading
@@ -8,7 +8,7 @@ path = 'download'
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
-def fix_filename(quality, filename):
+def fix_mp3_extension(quality, filename):
     quality = quality.lower()
     if quality == 'mp3':
         extension = re.search(r'\.([a-zA-Z0-9]+)$', filename).group(1)
@@ -27,7 +27,7 @@ def download():
     videoID = request.args.get('v', '')
     quality = request.args.get('q', '')
     filename = wish_YT_downloader.download(f'https://youtu.be/{videoID}', f'-{quality}-')
-    new_filename = fix_filename(quality, filename)
+    new_filename = fix_mp3_extension(quality, filename)
     file_path = os.path.join('download', new_filename)
     try:
         return send_from_directory('download', new_filename, as_attachment=True)

@@ -1,9 +1,16 @@
 const buttonLQ = document.querySelector('#-LQ-')
 const buttonHQ = document.querySelector('#-HQ-')
 const buttonMP3 = document.querySelector('#-MP3-')
+const buttonPaste = document.querySelector("#paste")
 const input = document.querySelector('#input')
 const buttons = document.getElementsByClassName('quality')
 
+
+buttonPaste.addEventListener('click', async function(e){
+    e.preventDefault()
+    const response = await navigator.clipboard.readText();
+    input.value = response;
+}, false)
 
 buttonLQ.addEventListener('click', function(){
     downloadButton('LQ')
@@ -65,4 +72,8 @@ function enableButtons() {
     buttons[1].disabled = false
     buttons[2].innerText = 'Somente audio'
     buttons[2].disabled = false
+}
+
+function paste(){
+    
 }
