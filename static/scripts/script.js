@@ -74,9 +74,9 @@ function disableButtons() {
 
 function enableButtons() {
     buttons[0].innerText = 'Qualidade baixa'
-    buttons[0].disabled = false
     buttons[1].innerText = 'Qualidade alta'
-    buttons[1].disabled = false
     buttons[2].innerText = 'Somente audio'
-    buttons[2].disabled = false
+    for (let i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = false;
+      }
 }
