@@ -10,19 +10,22 @@
     <script src="{{ url_for('static', filename='scripts/script.js') }}" defer></script>
 </head>
 <body>
-    <header>
-        <h1>Wish Youtube Downloader</h1>
-    </header>
     <main>
-        <div class="container">
-            <h2>Baixe seu video favorito</h2>
+        <div id="container">
+            <h1>Wish Youtube Downloader</h1>
             <div id="input-box">
                 <input id="input" type="text" placeholder="Cole a url do video aqui...">
-                <button id="paste">Colar</button>
+                <button id="load">Carregar</button>
             </div>
-            <button id="-LQ-" class="quality">Qualidade baixa</button>
-            <button id="-HQ-" class="quality">Qualidade alta</button>
-            <button id="-MP3-" class="quality">Somente audio</button>
+            <div id="video">
+                <div id="thumbnail"></div>
+                <div id="qualities">
+                    <button id="-LQ-" class="quality">Qualidade baixa</button>
+                    <button id="-HQ-" class="quality">Qualidade alta</button>
+                    <button id="-MP3-" class="quality">Somente audio</button>
+                </div>
+            </div>
+            
         </div>
     </main>
 </body>

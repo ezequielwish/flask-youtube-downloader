@@ -1,15 +1,35 @@
 const buttonLQ = document.querySelector('#-LQ-')
 const buttonHQ = document.querySelector('#-HQ-')
 const buttonMP3 = document.querySelector('#-MP3-')
-const buttonPaste = document.querySelector("#paste")
+const buttonLoad = document.querySelector("#load")
 const input = document.querySelector('#input')
 const buttons = document.getElementsByClassName('quality')
+const thumb = document.querySelector('#thumbnail')
+const video = document.querySelector('#video')
+var url = ""
+var videoId = ""
 
-
-buttonPaste.addEventListener('click', async function(e){
+buttonLoad.addEventListener('click', async function(e){
     e.preventDefault()
-    const response = await navigator.clipboard.readText();
-    input.value = response;
+    if (input.value != '') {
+        if(input.value.search('youtu') >= 0){
+            let match = input.value.match(/v=([\w\W+]{11})/)
+            if (match !== null){
+                showVideo()
+                url = input.value
+                videoId = match[1]
+                let thumbnail = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+                var embedCode = `<img src="${thumbnail}">`
+                thumb.innerHTML = embedCode
+            } else{
+                window.alert('Insira uma url válida!')
+            }
+        } else{
+            window.alert("Insira uma url do youtube!")
+        }
+    } else{
+        window.alert("Insira uma url")
+    }
 }, false)
 
 buttonLQ.addEventListener('click', function(){
@@ -26,44 +46,31 @@ buttonMP3.addEventListener('click', function(){
 
 
 function downloadButton(quality) {
-    if (input.value != '') {
-        if(input.value.search('youtu') >= 0){
-            let match = input.value.match(/v=([\w\W+]{11})/)
-            if (match !== null){
-                disableButtons()
-                const videoId = match[1]
-                fetch(`http://localhost:5000/download?v=${videoId}&q=${quality}`, {method: "GET", credentials: "include"}).then(response => {
-                    return response.blob()
-                }).then(blob => {
-                    const downloadURL = URL.createObjectURL(blob)
-                    const link = document.createElement('a')
-                    link.href = downloadURL
-                    link.download = ""
-                    link.click()
-                })
-                .then(()=>{
-                    enableButtons()
-                })
-            } else{
-                window.alert('Insira uma url válida!')
-            }
-        } else{
-            window.alert("Insira uma url do youtube!")
-        }
-    } else{
-        window.alert("Insira uma url")
-    }
+    disableButtons()
+    fetch(`http://localhost:5000/download?v=${videoId}&q=${quality}`, {method: "GET", credentials: "include"}).then(response => {
+        return response.blob()
+    }).then(blob => {
+        const downloadURL = URL.createObjectURL(blob)
+        const link = document.createElement('a')
+        link.href = downloadURL
+        link.download = ""
+        link.click()
+    })
+    .then(()=>{
+        enableButtons()
+    })
 }
 
+function showVideo(){
+    video.style.display = 'flex'
+}
 
 function disableButtons() {
-    buttons[0].innerText = 'Preparando...'
-    buttons[0].disabled = true
-    buttons[1].innerText = 'Preparando...'
-    buttons[1].disabled = true
-    buttons[2].innerText = 'Preparando...'
-    buttons[2].disabled = true
-}
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].innerText = 'Preparando...';
+      buttons[i].disabled = true;
+    }
+  }
 
 function enableButtons() {
     buttons[0].innerText = 'Qualidade baixa'
@@ -72,8 +79,4 @@ function enableButtons() {
     buttons[1].disabled = false
     buttons[2].innerText = 'Somente audio'
     buttons[2].disabled = false
-}
-
-function paste(){
-    
 }
