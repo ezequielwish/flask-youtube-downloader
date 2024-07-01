@@ -1,10 +1,10 @@
 from flask import Flask, render_template, send_from_directory, request
 from flask_cors import CORS, cross_origin
 import wish_YT_downloader
-import os, re, threading
+import os, re, threading, platform
 
-
-path = 'download'
+operacional_system = platform.system()
+path = r'.\download' if operacional_system == 'nt' else 'download'
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
@@ -18,7 +18,7 @@ def fix_mp3_extension(quality, filename):
         return filename
 
 def delete_file(file_path):
-    time_to_wait = 120
+    time_to_wait = 60
     threading.Timer(time_to_wait, os.remove, args=(file_path,)).start()
 
 @app.route('/download', methods= ['GET'])
